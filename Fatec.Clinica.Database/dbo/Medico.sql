@@ -4,7 +4,7 @@
 	[IdEspecialidade] INT NOT NULL,
 	[IdUsuario] INT NOT NULL,
     [Nome] VARCHAR(100) NOT NULL, 
-    [Crm] VARCHAR(10) NOT NULL, 
+    [Crm] VARCHAR(10) UNIQUE NOT NULL, 
 	[Telefone_r] VARCHAR(13) NOT NULL,
 	[Telefone_c] VARCHAR(13) NOT NULL,
 	[Endereco_c] VARCHAR(100) NOT NULL,
