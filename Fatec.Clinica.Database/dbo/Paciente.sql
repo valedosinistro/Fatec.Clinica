@@ -6,7 +6,8 @@ Telefone varchar(13) not null,
 Sexo char not null,
 Data_Nasc Date not null,
 Ativo bit not null,
-IdUsuario int not null,
+Ativo_Adm bit not null,
+Email varchar(100) not null UNIQUE,
+Senha varchar(8) not null,
 Constraint [PK_Paciente] Primary Key (Id),
-Constraint [FK_Paciente_Usuario] foreign key (IdUsuario) references [Usuario]([id])
 )
