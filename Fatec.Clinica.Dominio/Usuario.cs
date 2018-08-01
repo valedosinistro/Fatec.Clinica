@@ -10,6 +10,6 @@ namespace Fatec.Clinica.Dominio
         public string Email { get; set; }
         public string Senha { get; set; }
         public char Tipo { get; set; }
-        public char Ativo { get; set; }
+        public Boolean Ativo { get; set; }
     }
 }
