@@ -20,7 +20,7 @@ namespace Fatec.Clinica.Dado
         {
             using (var connection = new SqlConnection(DbConnectionFactory.SQLConnectionString))
             {
-                var lista = connection.Query<MedicoDto>($"SELECT M.Id, M.Nome, M.Cpf, M.Crm, M.IdEspecialidade, E.Nome As Especialidade " +
+                var lista = connection.Query<MedicoDto>($"SELECT M.Id, M.Nome, M.Cpf, M.Crm, M.IdEspecialidade, M.Telefone_r, M.Telefone_c, M.Endereco_C, M.Cidade, M.Estado, M.Ativo, E.Nome As Especialidade " +
                                                         $"FROM [Medico] M " +
                                                         $"JOIN [Especialidade] E ON M.IdEspecialidade = E.Id");
                 return lista;
@@ -66,7 +66,7 @@ namespace Fatec.Clinica.Dado
         /// </summary>
         /// <param name="crm"></param>
         /// <returns></returns>
-        public Medico SelecionarPorCrm(int crm)
+        public Medico SelecionarPorCrm(string crm)
         {
             using (var connection = new SqlConnection(DbConnectionFactory.SQLConnectionString))
             {
@@ -104,11 +104,19 @@ namespace Fatec.Clinica.Dado
             {
                 return connection.QuerySingle<int>($"DECLARE @ID int;" +
                                               $"INSERT INTO [Medico] " +
-                                              $"(IdEspecialidade, Nome, Cpf, Crm) " +
-                                                    $"VALUES ({entity.IdEspecialidade}," +
+                                              $"(IdEspecialidade,IdUsuario, Nome, Cpf, Crm,Telefone_r,Telefone_c,Endereco_c,Cidade,Estado,Ativo) " +
+                                                    $"VALUES ("+
+                                                            $"'{entity.IdEspecialidade}'," +
+                                                            $"'{entity.IdUsuario}'," +
                                                             $"'{entity.Nome}'," +
                                                             $"'{entity.Cpf}'," +
-                                                            $"{entity.Crm})" +
+                                                            $"'{entity.Crm}'," +
+                                                            $"'{entity.Telefone_r}'," +
+                                                            $"'{entity.Telefone_c}'," +
+                                                            $"'{entity.Endereco_c}'," +
+                                                            $"'{entity.Cidade}'," +
+                                                            $"'{entity.Estado}'," +
+                                                            $"'{entity.Ativo}')" +
                                               $"SET @ID = SCOPE_IDENTITY();" +
                                               $"SELECT @ID");
             }
