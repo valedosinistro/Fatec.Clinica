@@ -19,6 +19,7 @@ namespace Fatec.Clinica.Api.Controllers
         /// 
         /// </summary>
         private MedicoNegocio _medicoNegocio;
+        private UsuarioNegocio _usuarioNegocio;
 
         /// <summary>
         /// 
@@ -26,10 +27,11 @@ namespace Fatec.Clinica.Api.Controllers
         public MedicoController()
         {
             _medicoNegocio = new MedicoNegocio();
+            _usuarioNegocio = new UsuarioNegocio();
         }
 
         /// <summary>
-        /// Método que obtem uma lista de métodos
+        /// Método que obtem uma lista de médicos
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -41,7 +43,7 @@ namespace Fatec.Clinica.Api.Controllers
         }
 
         /// <summary>
-        /// Método que seleciona um médico..
+        /// Método que seleciona um médico
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -55,7 +57,7 @@ namespace Fatec.Clinica.Api.Controllers
         }
 
         /// <summary>
-        /// Método que seleciona um médico..
+        /// Método que obtem uma lista de médicos por especialidade
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -69,7 +71,7 @@ namespace Fatec.Clinica.Api.Controllers
         }
 
         /// <summary>
-        /// Método que insere um médico..
+        /// Método que insere um médico
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -79,13 +81,32 @@ namespace Fatec.Clinica.Api.Controllers
         [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
         public IActionResult Post([FromBody]MedicoInput input)
         {
+            var objUsuario = new Usuario()
+            {
+                Email = input.Email,
+                Senha = input.Senha,
+                Tipo = 'M',
+                Ativo = true
+            };
+
+
             var objMedico = new Medico()
             {
                 Cpf = input.Cpf,
                 Crm =  input.Crm,
                 IdEspecialidade = input.IdEspecialidade,
-                Nome = input.Nome
+                Nome = input.Nome,
+                Telefone_c = input.Telefone_c,
+                Telefone_r = input.Telefone_r,
+                Endereco_c = input.Endereco_c,
+                Estado = input.Estado,
+                Cidade = input.Cidade,
+                Ativo = true
+
             };
+
+            var idUsuario = _usuarioNegocio.Inserir(objUsuario);
+            objMedico.IdUsuario = idUsuario;
 
             var idMedico = _medicoNegocio.Inserir(objMedico);
             objMedico.Id = idMedico;
@@ -118,7 +139,7 @@ namespace Fatec.Clinica.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Método que deleta um médico
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Fatec.Clinica.Dado;
 using Fatec.Clinica.Dominio;
 using Fatec.Clinica.Dominio.Dto;
@@ -55,7 +56,7 @@ namespace Fatec.Clinica.Negocio
         /// <returns></returns>
         public IEnumerable<MedicoDto> SelecionarPorEspecialidade(int id)
         {
-           return _medicoRepositorio.SelecionarPorEspecialidade(id);
+            return _medicoRepositorio.SelecionarPorEspecialidade(id);
         }
 
         /// <summary>
@@ -65,9 +66,13 @@ namespace Fatec.Clinica.Negocio
         /// <returns></returns>
         public int Inserir(Medico entity)
         {
+            if (!VerificaCamposObrigatorios(entity)) {
+                throw new ConflitoException("Por favor preencha todos os campos obrigatórios !");
+            }
+
             var crmExistente = _medicoRepositorio.SelecionarPorCrm(entity.Crm);
 
-            if(crmExistente != null)
+            if (crmExistente != null)
                 throw new ConflitoException($"Já existe cadastrado o CRM {crmExistente.Crm}!");
 
             var cpfExistente = _medicoRepositorio.SelecionarPorCpf(entity.Cpf);
@@ -78,7 +83,7 @@ namespace Fatec.Clinica.Negocio
 
             return _medicoRepositorio.Inserir(entity);
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -118,6 +123,28 @@ namespace Fatec.Clinica.Negocio
             var obj = SelecionarPorId(id);
 
             _medicoRepositorio.Deletar(obj.Id);
+        }
+
+        // Verifica se os campos obrigatórios estão preenchidos
+        private bool VerificaCamposObrigatorios(Medico entity)
+        {
+            if (String.IsNullOrEmpty(entity.Nome) || String.IsNullOrEmpty(entity.Cpf) || String.IsNullOrEmpty(entity.Crm))
+            {
+                return false;
+            }
+
+            if(String.IsNullOrEmpty(entity.Telefone_r) || String.IsNullOrEmpty(entity.Telefone_c) || String.IsNullOrEmpty(entity.Endereco_c))
+            {
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(entity.Cidade) || String.IsNullOrEmpty(entity.Estado))
+            {
+                return false;
+            }
+
+            return true;
+
         }
     }
 }
