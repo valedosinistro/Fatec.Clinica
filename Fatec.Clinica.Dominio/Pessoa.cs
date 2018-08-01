@@ -8,6 +8,8 @@ namespace Fatec.Clinica.Dominio
         public string Nome { get; set; }
         public string Cpf { get; set; }
         public Boolean Ativo { get; set; }
-        public int IdUsuario { get; set; }
+        public string Email { get; set; }
+        public string Senha { get; set; }
+        public Boolean Ativo_Adm { get; set; }
     }
 }
