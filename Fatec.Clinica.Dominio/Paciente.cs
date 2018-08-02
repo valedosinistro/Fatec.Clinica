@@ -8,6 +8,5 @@ namespace Fatec.Clinica.Dominio
     {
         public string Telefone { get; set; }
         public DateTime Data_Nasc { get; set; }
-        public char Sexo { get; set; }
     }
 }

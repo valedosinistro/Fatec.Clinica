@@ -91,6 +91,7 @@ namespace Fatec.Clinica.Api.Controllers
                 Nome = input.Nome,
                 Email = input.Email,
                 Senha = input.Senha,
+                Sexo = input.Sexo,
                 Telefone_c = input.Telefone_c,
                 Telefone_r = input.Telefone_r,
                 Endereco_c = input.Endereco_c,

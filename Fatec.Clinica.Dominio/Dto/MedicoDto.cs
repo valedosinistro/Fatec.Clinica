@@ -14,6 +14,7 @@ namespace Fatec.Clinica.Dominio.Dto
         public int IdEspecialidade { get; set; }
         public string Telefone_r { get; set; }
         public string Telefone_c { get; set; }
+        public char Sexo { get; set; }
         public string Endereco_c { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }

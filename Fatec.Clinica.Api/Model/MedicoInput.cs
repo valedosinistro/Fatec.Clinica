@@ -11,6 +11,7 @@ namespace Fatec.Clinica.Api.Model
         public string Senha { get; set; }
         public string Nome { get; set; }
         public string Cpf { get; set; }
+        public char Sexo { get; set; }
         public string Crm { get; set; }
         public int IdEspecialidade { get; set; }
         public string Telefone_r { get; set; }

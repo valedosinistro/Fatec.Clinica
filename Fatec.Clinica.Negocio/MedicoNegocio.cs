@@ -149,7 +149,7 @@ namespace Fatec.Clinica.Negocio
         // Verifica se os campos obrigatórios estão preenchidos
         private bool VerificaCamposObrigatorios(Medico entity)
         {
-            if (String.IsNullOrEmpty(entity.Email) || String.IsNullOrEmpty(entity.Senha))
+            if (String.IsNullOrEmpty(entity.Email) || String.IsNullOrEmpty(entity.Senha) || String.IsNullOrEmpty(entity.Sexo.ToString()))
             {
                 return false;
             }

@@ -21,7 +21,7 @@ namespace Fatec.Clinica.Dado
         {
             using (var connection = new SqlConnection(DbConnectionFactory.SQLConnectionString))
             {
-                var lista = connection.Query<MedicoDto>($"SELECT M.Id,M.Email, M.Nome, M.Cpf, M.Crm, M.IdEspecialidade, M.Telefone_r, M.Telefone_c, M.Endereco_C, M.Cidade, M.Estado, M.Ativo, M.Ativo_Adm, E.Nome As Especialidade " +
+                var lista = connection.Query<MedicoDto>($"SELECT M.Id,M.Email, M.Sexo, M.Nome, M.Cpf, M.Crm, M.IdEspecialidade, M.Telefone_r, M.Telefone_c, M.Endereco_C, M.Cidade, M.Estado, M.Ativo, M.Ativo_Adm, E.Nome As Especialidade " +
                                                         $"FROM [Medico] M " +
                                                         $"JOIN [Especialidade] E ON M.IdEspecialidade = E.Id");
                 return lista;
@@ -37,7 +37,7 @@ namespace Fatec.Clinica.Dado
         {
             using (var connection = new SqlConnection(DbConnectionFactory.SQLConnectionString))
             {
-                var obj = connection.QueryFirstOrDefault<MedicoDto>($"SELECT M.Id,M.Email, M.Nome, M.Cpf, M.Crm, M.IdEspecialidade, M.Telefone_r, M.Telefone_c, M.Endereco_C, M.Cidade, M.Estado, M.Ativo, M.Ativo_Adm, E.Nome As Especialidade " +
+                var obj = connection.QueryFirstOrDefault<MedicoDto>($"SELECT M.Id,M.Email, M.Sexo, M.Nome, M.Cpf, M.Crm, M.IdEspecialidade, M.Telefone_r, M.Telefone_c, M.Endereco_C, M.Cidade, M.Estado, M.Ativo, M.Ativo_Adm, E.Nome As Especialidade " +
                                                                  $"FROM [Medico] M " +
                                                                  $"JOIN [Especialidade] E ON M.IdEspecialidade = E.Id " +
                                                                  $"WHERE M.Id = {id}");
@@ -54,7 +54,7 @@ namespace Fatec.Clinica.Dado
         {
             using (var connection = new SqlConnection(DbConnectionFactory.SQLConnectionString))
             {
-                var obj = connection.Query<MedicoDto>($"SELECT M.Id,M.Email, M.Nome, M.Cpf, M.Crm, M.IdEspecialidade, M.Telefone_r, M.Telefone_c, M.Endereco_C, M.Cidade, M.Estado, M.Ativo, M.Ativo_Adm, E.Nome As Especialidade " +
+                var obj = connection.Query<MedicoDto>($"SELECT M.Id,M.Email, M.Nome, M.Sexo, M.Cpf, M.Crm, M.IdEspecialidade, M.Telefone_r, M.Telefone_c, M.Endereco_C, M.Cidade, M.Estado, M.Ativo, M.Ativo_Adm, E.Nome As Especialidade " +
                                                                     $"FROM [Medico] M " +
                                                                     $"JOIN [Especialidade] E ON M.IdEspecialidade = E.Id " +
                                                                     $"WHERE E.Id = {id}");
@@ -116,11 +116,12 @@ namespace Fatec.Clinica.Dado
             {
                 return connection.QuerySingle<int>($"DECLARE @ID int;" +
                                               $"INSERT INTO [Medico] " +
-                                              $"(IdEspecialidade,Email,Senha, Nome, Cpf, Crm,Telefone_r,Telefone_c,Endereco_c,Cidade,Estado,Ativo,Ativo_Adm) " +
+                                              $"(IdEspecialidade,Email,Senha, Sexo, Nome, Cpf, Crm,Telefone_r,Telefone_c,Endereco_c,Cidade,Estado,Ativo,Ativo_Adm) " +
                                                     $"VALUES ("+
                                                             $"'{entity.IdEspecialidade}'," +
                                                             $"'{entity.Email}'," +
                                                             $"'{entity.Senha}'," +
+                                                            $"'{entity.Sexo}'," +
                                                             $"'{entity.Nome}'," +
                                                             $"'{entity.Cpf}'," +
                                                             $"'{entity.Crm}'," +
